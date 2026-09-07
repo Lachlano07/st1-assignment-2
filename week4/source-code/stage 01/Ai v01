@@ -1,0 +1,66 @@
+# gp_appointments.py
+#
+# A simple, beginner-friendly program for a GP clinic to store appointments
+# in memory (while the program is running). No databases, no GUI — just
+# plain Python using a list of dictionaries.
+
+# This list will hold all of our appointments.
+# Each appointment is stored as a dictionary with three pieces of information:
+# the patient's name, the practitioner's name, and the appointment time.
+appointments = []
+
+
+def add_appointment(patient_name, practitioner_name, appointment_time):
+    """
+    Add a new appointment to the appointments list.
+
+    Parameters:
+        patient_name (str): The name of the patient.
+        practitioner_name (str): The name of the doctor/nurse/etc.
+        appointment_time (str): The date and/or time of the appointment.
+    """
+    # Create a dictionary to represent this single appointment.
+    new_appointment = {
+        "patient": patient_name,
+        "practitioner": practitioner_name,
+        "time": appointment_time
+    }
+
+    # Add the new appointment dictionary to our list of appointments.
+    appointments.append(new_appointment)
+
+    # Let the user know it worked.
+    print(f"Appointment added: {patient_name} with {practitioner_name} at {appointment_time}")
+
+
+def view_appointments():
+    """
+    Print out all stored appointments in a clear, readable format.
+    """
+    # If there are no appointments yet, say so and stop here.
+    if len(appointments) == 0:
+        print("There are no appointments booked yet.")
+        return
+
+    print("\n--- Current Appointments ---")
+
+    # Go through each appointment in the list one at a time.
+    # enumerate() lets us also get a number (starting at 1) for each one.
+    for number, appointment in enumerate(appointments, start=1):
+        print(f"{number}. Patient: {appointment['patient']}")
+        print(f"   Practitioner: {appointment['practitioner']}")
+        print(f"   Time: {appointment['time']}")
+        print()  # blank line between appointments for readability
+
+
+# ---------------------------------------------------------------
+# Example usage: this only runs when the file is run directly
+# (not if it's imported into another script).
+# ---------------------------------------------------------------
+if __name__ == "__main__":
+    # Add a couple of sample appointments.
+    add_appointment("John Smith", "Dr. Patel", "Monday 9:00 AM")
+    add_appointment("Amy Nguyen", "Dr. Osei", "Monday 10:30 AM")
+
+    # Print out all the appointments we've stored so far.
+    view_appointments()
