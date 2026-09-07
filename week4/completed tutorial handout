@@ -1,0 +1,96 @@
+activity 1 
+if ChatGPT or Copilot can produce a 100 line python quickly, what knowledge does a sofware engineer still need?
+1. understanding the real business problem well enough to know what the software needs to do and why.
+2. The ability to check the AI code for secuirty, reliability and to make sure the program does what it's meant to do. 
+3. System design and communication skils, so the software fits with the users, other systems and future updates and changes. 
+
+
+activity 2
+Scenario A: A student writes a 50 line python calculator.
+Scenario B: A team develops a payroll system used by 5000 employees.
+Scenario C: An AI assistant generates a simple appointment appilcation from one prompt.
+
+Sceanrio A 
+is it programing: yes 
+Software engienering: no
+why: it's a self contained program with no stakeholders, requirements gathering or ongoing maintance.
+Scenario B 
+is it programing: yes
+software engienering: yes
+why: it requires an understanding of the request from stakeholders, design, testing, reliability and maintance for a larger user base. 
+
+Sceanrio C: The AI only generated code from one prompt, no one gathered the requirements, considered stakeholders or verified results.
+
+activity 3 
+client statement: SmartCare community clinic currently uses spreadsheet and paper records to manage paitents and appointments. The clinic wants new software to imrpove these processes. 
+
+task 1
+indetify stakeholders 
+
+1. receptionist/staff
+what do they need? A fast reliable way to book, find and update appointments without duplicates. 
+2. Gp's
+what do they need? clear, accurate visbility of their own schedule and availability.
+3. clinic management
+what do they need? Reliable appoinment history and simple reports on clinic operations. 
+
+task 2 
+indetify current problems 
+
+1. duplicate appointment bookings cause by relying on spreadsheets and paper with no single source
+2. difficulty locating patient records because of information being spread across paper files and separate spreadsheets. 
+3. limited visibility of GP avaliabilty, leading to double bookings
+4. no reliable appoinment history, making it harder to produce basic operation reports for managment.
+
+task 3
+1. how many practinioers and paitents does the system need to support now and how much is it expceted to grow 
+2. who will actually use the system, recepionist only or GP as well, will will paients have direct access? 
+3. what cancellation and rescheduliing process would you like? and who is allowed to make these changes? 
+4. what information must appear on the operational reports you currently struggle to produce? 
+5. are there any privacy, secuirty or data storage requirements we must follow? 
+
+Activty 4. 
+An AI assistant suggestes, appoitment managment, facail recgnition login, AI diagnosis recommendations, patient search, online payment, GP schedule view, insurance processing and automatic treatment plan generation. 
+
+1. appoitment managment
+client eviedence? yes 
+in scope? yes
+decison? include 
+
+2. Facial Recognition login
+client evidence? no 
+in scope? no 
+decison? reject 
+
+3. AI diagnosis recommendations
+client evidence? no 
+in scope? no
+decison? reject 
+
+4. patient search
+client evidence? implied, managing patients
+in scope? yes
+decison? include
+
+5. online payment 
+client evidence? no
+in scope? up for discussion
+decision? refere to client 
+
+6. GP schedule view
+client evidence? implied, managing GP 
+in scope? yes
+decison? include 
+
+7. insurance 
+client evidence? no
+in scope? no 
+decison? reject 
+
+8. treatment plan generation
+client evidence? no
+in scope? no 
+decison? reject 
+
+exit questopn 
+validation requirements with the client, deciding what the system should do, as AI cannot know the clients implicit needs or context and a person mus ttake responsibilty for verfiying the solution. 

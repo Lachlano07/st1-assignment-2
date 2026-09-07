@@ -1,0 +1,96 @@
+problem summary 
+
+Smartcare community clinic currently uses spreadsheets and paper records to manger their patients, records and appoinments. This causes duplicate bookings, makes patient records hard to manage and locate and gives staff limited access to gp availability with no reliable way to produce baisc patient reports. the client has asked for software to help manage patients, practitoners and appoinments but the request does not have clear requirments, it does not say who will use the system, how cancellations hould be handled, what reporting is needed or what privacy and sequrity expecations are applyed to patient data. before designing a solution, these things should be discussed with the client directly rather then assumed. 
+
+intial stakerholders
+
+1. recepionist
+possible needs: a fast, reliable way to booking, locate and update appoinments without allowing double ups
+
+2. gp's
+possible needs: clear, accurate and easily accessiable view of their schedule 
+
+3. patients 
+possible needs: confidence on their appoinment details. 
+
+4. clinic management
+possible needs: reliable records and simple reports
+
+inital features 
+1. booking and records of appoinments 
+confirmed by client as directly stated by clients request 
+
+2. viewing and search of existing appoinments 
+confirment by client as implied by "managing appoinments" needs to replace a spreadsheet and paper
+
+3. manage GP records and availability
+provisional as the client mentioned GP's but the client has not said what "manging" them looks like
+
+4. reports on appoinment history
+provisnal, not mentioned by client but paper records are currently making this diffucult, worth disscusing with client.
+
+
+questions for client. 
+1. Who will actually use the system,receptionists only, or also GP's and patients directly?
+2. How should cancellations and rescheduling be handled, and by who?
+3. What information must appear in an appointment report?
+4. Are there any privacy, security or record keeping requirements for patient data?
+5. How many GP's and patients does the system need to support now and as the clinic grows?
+
+
+what we do not yet know
+
+1. Whether appointment data needs to be saved permanently or if a simple in memory prototype is acceptable for now.
+2. Whether GP's need their own login/view of the system, or if only receptionists will interact with it directly.
+3. What "managing GP's" means beyond appointments, eg availability, qualifications or rostering.
+
+
+ask, check, explain
+
+before AI
+what do I think the code does? what problems can i already identify?
+
+I think the code stores each appoinment as a dictionary in a list, kets a new one betyped in and booked live via input() and prints them all with  display(). problems I can identify: nothing is stoping two patients being booked with the same GP at the same time.
+
+AI request
+Act as a tutor. Explain this code and identify potential problems. Do not provide a complete replacement. Ask me questions that help me reason about the solution.
+
+
+suggestion 
+Validate practitioner_name and appointment_time
+verdict: useful
+
+break down appointment_time with datetime.strptime() for validation and sorting
+verdict:unclear 
+
+
+Check for a clashing gp/time before appending a new appointment
+verdict: useful
+
+Decide
+For each significant suggestion: Accept / Modify / Reject / Keep unverified.
+1. Validate practitioner_name and appointment_time : Keep unverified: a real gap, but not fixed in this version; noted as a follow-up improvement.
+
+2. break down appointment_time with datetime.strptime(): Reject for now: adds a level of complexity beyond what this beginner-level prototype needs string time is enough for v01.
+3. Check for a clashing gp/time before appending : Accept: discussed in Part G as the one controlled improvement for this stage.
+
+Verify
+Run the code
+Done : ran both my code and the AI-generated code directly.
+Test normal input
+Done : booked a normal appointment and confirmed it displayed correctly.
+Test unusual input
+Done : tested a blank patient name, a duplicate booking, and None values.
+Compare with requirements
+Done : checked both versions only used patient/practitioner/time, no database or GUI.
+Ask tutor/peer
+Done : used the AI tutor in Part C and answered its two comprehension questions myself.
+Check documentation
+Not yet done : would need to check datetime's strptime() format codes before using that suggestion
+
+explain
+can i explain the final code without reading the AI response? what do I still need to understand?
+
+yes, i can explain all of my code. I wrote it before talking to an AI. what I still need to understand better is exactly how datetime.strptime() works, as that's the suggestion I haven't implemented or tested my self.
+
+
