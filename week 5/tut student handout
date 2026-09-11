@@ -1,0 +1,87 @@
+activty 1: stakeholers 
+
+1. patients 
+needs: being able to book, view and cancel appointments easily. confident their personal data stays private.
+potential conflict: wanting fast self service can cause conflict with staff needing to verify identity but also needed to protect patient data
+
+2. receptionsts
+needs: the ability to quickly create, find and update appointments without dupiclates. 
+potential conflict: wants simple, low friction workflow which can cause conflict with managment wanting more detailed reports. 
+
+3. GP's
+needs: an accurate, up to date view of their own schedule and patients history
+potential conflict: wants minimal admin work themselves but depends on receptionist data accuracy and efficiency
+
+4. clinic management
+needs: reliable appoinment history and simple operantial reports.
+potential conflict: wants detailed reports and better data storage, which can cause confilict with the clients request for a simple low cost program. 
+
+5. system owner
+needs: needs the system to be simple enough to maintain and update without a dedicated it department
+potential confict: may conflict with staff or magement requests for extra featuers beyond a managable application
+
+activity 2 
+functional or non funcitonal 
+
+1. the system shall allow staff to cancel an appoinment: functional 
+2. the system should remain responsive for the course-scale dataset: non functional 
+3. the system shall retain cancelled appointments: functional
+4. core business logic should be be independently testable: non functional 
+5. the system shall search for a patient for ID: functional 
+
+
+activity 3 
+
+the system should be easy to use 
+
+problem: "easy to use" is a subjective matter that has no way to measure the criteria or to test against it.
+clarification question: what specific usability tartget must be met. for example a new recepionist complete a booking after a short introduction to the program? 
+
+patient search should be fast
+problem: fast is not defined, there was no desired time established.
+clarification question: what is the maximum acceptable response time for a patient search? 
+
+the system should securely manage data
+problem: "securely" does not explain what secruity messuares are needed or which threats should be the focus for protection. 
+clarification question: what specific controls are required. for example, role based access, an audit login of whos accessed a paitent record.
+
+Appointments should nomrally be easy to cancel.
+problem: "nomral" and "easy" are both very vague and undefined, so it's unclear which cases are exceptions to "normal" or what is considered "easy".
+clarification question: are there rules for a cancelltion is restriced.
+
+activity 4 
+classify each suggestion 
+
+1. patients receives SMS reminders
+classification: assumption requiring validation 
+reason: client does mention any "patient reminders" in the brief. However, could be something worth checking with the client.
+
+2. Facial recognition login
+classification: out of scope 
+reason: client asked for a simple system and biometric login is far from simple
+
+3.  receptionist creates appointments
+classification: confirmed
+reason: client states booking is currently manual and suffers from duplicate bookings, implying receptionist create appoinments and need a proper system to support them.
+
+4. online payment
+classification: out of scope
+reason: the client brief lists no billing or payment problems. 
+
+5. GP's view schedules
+classification: confirmed
+reason: client explicitly mentions "limited visibility of practioner avaliability" as a current issue.
+
+6. AI reccomeds treatments
+classification: out of scope
+reason: client requested a simple system for booking appoinments and an ai system to help clinical decison making is far beyond simple and has no connection to a appoinment booking system. 
+
+7. cancelled appoinments remain in hisotry
+classification: confirmed
+reason: client explicility mentions "lack of reliable appoinment history" as a issue.
+
+
+exit question 
+why is "ai suggested it" npt sufficient evidence for a requirement? 
+
+ai suggestion's are pattern drawn from genral training data, not from the opinions of the stakerholders of the request. it doesn't understand the clinics constraints and it can hallucinate features it sees fit for the clinic. A requirement needs to be documented client need or a stated issue that needs resolving. 

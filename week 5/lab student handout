@@ -1,0 +1,353 @@
+Part A - Client Brief
+SmartCare uses spreadsheets and paper records. Staff report duplicate bookings, difficulty finding patient
+information, inconsistent appointment status and limited appointment history. Management wants a small,
+maintainable patient, practitioner and appointment system.
+
+
+Part B - Stakeholders and Scope:
+Identify at least four stakeholders. Create In Scope and Out of Scope lists. Label uncertain features as provisional rather than confirmed
+
+1. Reception staff: primary system users. book, view, update and cancel appoinments 
+2. GP's: need to see their own schedule and patient's appointment hisotry 
+3. Clinic manager: oversees clinic operations, needs visibility into bookings, cancellations and no shows
+4. patients: indirectly affected by the system, their data being stored, their bookings being managed, not a dircet user but still affected.
+5. system maintainer/ future developer: whoever supports the system after handover, relevant to the "maintable" requirement stated by the client. 
+
+
+
+in scope 
+1. creating, viewing and searching patient records
+2. creating, viewing, updating and cancelling appointments
+3. basic gp records 
+4. preventing dupicate bookings 
+5. appointment status tracking. for example, booked, completed, cancelled or no show.
+6. appointment history of patients 
+7. provisional: a daily report, the client mentions difficulty producing basic operational reports as a issue but managment hasn't explicitly confirmed reporting as a requriment 
+
+out of scope 
+1. patient self service booking 
+2. online billing
+3. AI clinical notes or diagnoses
+4. multi location support 
+5. provisional: patient SMS reminders 
+
+
+Part C - Functional Requirements:
+Write 8-12 numbered functional requirements using FR-01, FR-02 and so on. Each should describe one observable capability
+
+1. FR-01: the system will allow receptionist to create a new patient record, storing name, contact info, date of birth and any other necessary information
+2. FR-02: the system will allow receptionist to search for an existing patient record by name 
+3. FR-03: the system will allow receptionist to create a new appointment by selecting a patient, gp, time and date. 
+4. FR-04: the system will not allow a new appointment if the seleceted gp already has an appointment at the same time
+5. FR-05: the system will require patient name, gp name and appointment time to be filled out before that appoinmtent can be saved
+6. FR-06: the system will allow staff to view all required appointmens
+7. FR-07: the system will allow receptionist to update appointment status
+8. FR-08: the system will allow receptionist to cancel appointments when needed
+9. FR-09: the system will retain all patient historys
+10. FR-10: the sytem will allow recptionist to filter by gp's 
+
+
+Part D - Non-Functional Requirements:
+Write 4-6 numbered non-functional requirements covering appropriate qualities such as reliability, maintainability, usability, data integrity or testability
+
+1. NRF-01: Appointment date and time should be stored as structured date-time value not free text, to support sorting and duplicate checks 
+quaility attribute: data integrity 
+
+2. NRF-02: all patient, GP and appointment data will remian persistant between session, no data loss when program closed
+quaility attribute: reliablity 
+
+3. NRF-03:(provisional) A receptionist with minimal training should be able to book an appointment in under X steps, further details to be confirmed with client 
+quaility attribute: usability
+
+4. NRF-04: The program will allow future developers to add features without modifying unreleated features
+quaility attribute: maintainability 
+
+5. NRF-05: each cpre function will be independently unit testable 
+quailty attribute: testability 
+
+
+Part E - User Stories and Acceptance Criteria:
+Write 4-6 user stories. For at least three, create Given-When-Then acceptance criteria including one negative or failure scenario.
+
+1. As a receptionist, I want to book a new appointment so that a patient has a confirmed time with a GP.
+
+Successful scenario: Given a patient and an available GP time slot When the receptionist submits a booking with all required fields Then the appointment is saved and appears in the day's list
+
+Failure scenario: Given the selected GP already has an appointment at that date/time When the receptionist attempts to book the same slot Then the system rejects the booking and shows a conflict message
+
+
+2. As a receptionist, I want to search for a patient by name so I don't create a duplicate record.
+
+Successful scenario: Given a patient record exists When I search by name Then matching records are returned
+
+Failure scenario: Given the search field is left blank When I submit the search Then the system rejects the search and prompts me to enter a name, instead of returning every patient record
+
+
+3. As a GP, I want to view my appointments for the day so I can prepare for consultations.
+
+Successful scenario: Given appointments exist for me on a given date When I open my daily schedule Then all my appointments for that date are shown in time order
+
+Failure scenario: Given the requested date is not a valid calendar date When I request my schedule for that date Then the system rejects the request and shows an error, rather than attempting to load and display bad data
+
+
+4. As a receptionist, I want to cancel an appointment so the slot is freed and the record reflects the change.
+
+Successful scenario: Given a valid, existing appointment When the receptionist cancels it Then its status is set to Cancelled and the slot becomes available again
+
+Failure scenario: Given an appointment ID doesn't exist or was already cancelled When the receptionist attempts to cancel it Then the system shows an error and makes no change
+
+
+Part F - AI Requirements Review
+Prompt: Act as a software requirements reviewer. Review the SmartCare requirements for ambiguity,
+inconsistency, missing clarification questions and testability. Do NOT invent new client requirements. For every suggestion, state whether it is based on evidence or is only a question/assumption requiring validation.
+
+see ai_usage.md for converstation 
+
+1. FR-01's "any other necessary information" is untestable: evidence 
+ 
+2. FR-02 doesn't specify partial vs. exact match:  Evidence
+  
+3. NFR-04 isn't independently testable: evidence 
+
+4. FR-03 vs FR-05 date mismatch: evidence 
+
+5. Scope "appointment history" vs FR-09 "patient historys": evidence 
+
+6. FR-07/FR-08/Story-4 cancel behavior: Evidence
+
+7. Scope "basic GP records" with no corresponding FR: Evidence
+
+8. No FR for duplicate-patient detection: Assumption
+
+9. Appointment duration/duplicate handling undefined: Assumption
+
+10. No authentication model, despite Story 3 implying GP-only visibility: evidence 
+
+11. Patient-side double-booking across two GPs: Assumption
+
+12. FR-02 blank-search rule in Story 2 but not FR-02: evidence 
+
+Part G - VERIFY the AI Review
+Classify each significant AI suggestion as Accepted, Modified, Rejected, or Unverified. Explain the evidence used
+
+
+Ambiguity
+1. FR-01's "any other necessary information" is untestable
+classifcation: unverified 
+reasoning: The phrase was left broad deliberately. The full set of required patient data hasn't been confirmed with the client, so narrowing FR-01 to a specific list now would mean inventing requirements rather than gathering them
+
+2. FR-02 doesn't specify partial vs. exact name match
+classification: modified 
+reason: The gap is real, but not a big deal, not a blocking ambiguity. Rather than escalating to a client question, state the assumption directly in the FR text.
+
+3. NFR-04 isn't independently testable via a normal AC
+classification: modifed 
+A testable NFR needs a mesurable pass or fail conditon and NFR-04's wording is leaving that out. changing the wording to something like "When a new feature is added to one functional area, no source files belonging to the other, as verified by reviewing the version control diff for that change. "
+
+
+Inconsistency
+1. FR-03 lists date as required while FR-05 does not mention it 
+classification: accepted 
+reason: Directly checkable from the two quoted field lists. this is a human error contradiction, not something needing client input to resolve. Fix by adding date to FR-05.
+
+2. appointment history vs. FR-09's "patient historys" is broader
+classification: modifed 
+reason: The wording mismatch is visible without outside input. easy fix is narrowing FR-09 to match the scope wording now. Whether the client wants broader history later could be a question to ask the client.
+
+3. FR-07/FR-08/Story-4: does cancelling free the slot, or is it just a status change?
+classification: unverified
+reason: The contradiction itself is checkable. Story 4's states that canceling an appointment will open that appointment. but neither FR mentions that. Whether cancel should be its own capability vs. a status-update variant is a fair question to forward to the client, since that's a design decision, not a wording fix.
+
+4. Scope lists "basic GP records" but no FR covers creating/viewing them
+classificationn: accepted 
+reason: Directly checkable by comparing the scope list against the FR list. Whether GP records need their own FRs or are assumed pre-seeded data is the Question.
+
+
+Missing Clarification Questions
+1. No FR enforces duplicate-patient detection, only duplicate bookings
+classification: unverified
+reason: can't be resolved from the document. whether manual search is enough is a product decision only the client can make. 
+
+2. Appointment duration and duplication handling is undefined 
+classification: unverified 
+reason: can't be resolved from the document. How the client wants to handle duration and duplicate appoinmtents needs to be discussed before it is implimented into the system.
+
+3. No authentication model, despite Story 3 implying GP-only visibility
+classification: accepted 
+reason: this is an internal gap I have created. I can add a place holder FR for access control for now then ask the client how they would like this to work.
+
+4. Patient side double-booking across two GPs isn't addressed
+classification: rejected 
+reason: this issue was never raised by the client, the ai has hallucinated this issue by comparing my system to other schedulling systems. this is still an issue that could be brought to the client.
+
+5. FR-02's blank-search rejection appears in Story 2 but not in FR-02 itself
+classification: accepted 
+reason: another internal gap. if the story mentions a validation rule I should have a FR that states it as well. 
+
+
+
+Part H - Finalise SmartCare v0.2
+Submit stakeholder analysis, scope, 8-12 FRs, 4-6 NFRs, 4-6 user stories, acceptance criteria,
+assumptions/open questions and selected AI review evidence
+
+
+stakeholder anyalysis 
+1. Reception staff: primary system users. book, view, update and cancel appoinments 
+2. GP's: need to see their own schedule and patient's appointment hisotry 
+3. Clinic manager: oversees clinic operations, needs visibility into bookings, cancellations and no shows
+4. patients: indirectly affected by the system, their data being stored, their bookings being managed, not a dircet user but still affected.
+5. system maintainer/ future developer: whoever supports the system after handover, relevant to the "maintable" requirement stated by the client. 
+
+
+scope
+
+in scope 
+1. creating, viewing and searching patient records
+2. creating, viewing, updating and cancelling appointments
+3. basic gp records 
+4. preventing dupicate bookings 
+5. appointment status tracking. for example, booked, completed, cancelled or no show.
+6. appointment history of patients 
+7. provisional: a daily report, the client mentions difficulty producing basic operational reports as a issue but managment hasn't explicitly confirmed reporting as a requriment 
+
+out of scope 
+1. patient self service booking 
+2. online billing
+3. AI clinical notes or diagnoses
+4. multi location support 
+5. provisional: patient SMS reminders 
+
+
+functional requirements 
+1. FR-01: the system will allow receptionist to create a new patient record, storing name, contact info, date of birth and any other necessary information (additional required information will be confirmed with client)
+2. FR-02: the system will allow receptionist to search for an existing patient record by name 
+3. FR-03: the system will allow receptionist to create a new appointment by selecting a patient, gp, time and date. 
+4. FR-04: the system will not allow a new appointment if the seleceted gp already has an appointment at the same time
+5. FR-05: the system will require patient name, gp name and appointment time and date to be filled out before that appoinmtent can be saved
+6. FR-06: the system will allow staff to view all required appointmens
+7. FR-07: the system will allow receptionist to update appointment status
+8. FR-08: the system will allow receptionist to cancel appointments when needed
+9. FR-09: the system will retain all patient historys
+10. FR-10: the sytem will allow recptionist to filter by gp's 
+11. FR-11 the system will restrict a GP's view to their own schedule. (placeholder for now, full authentication model to be confirmed with client)
+
+non functional requirments 
+
+1. NRF-01: Appointment date and time should be stored as structured date-time value not free text, to support sorting and duplicate checks 
+quaility attribute: data integrity 
+
+2. NRF-02: all patient, GP and appointment data will remian persistant between session, no data loss when program closed
+quaility attribute: reliablity 
+
+3. NRF-03:(provisional) A receptionist with minimal training should be able to book an appointment in under X steps, further details to be confirmed with client 
+quaility attribute: usability
+
+4. NRF-04: No source code will belong to another within functional areas, so when a new feature is added it will not affect others.( reworded to give a messurable pass fail)
+quaility attribute: maintainability 
+
+5. NRF-05: each cpre function will be independently unit testable 
+quailty attribute: testability 
+
+
+
+user stories and acceptance criteria 
+
+1. As a receptionist, I want to book a new appointment so that a patient has a confirmed time with a GP.
+
+Successful scenario: Given a patient and an available GP time slot When the receptionist submits a booking with all required fields Then the appointment is saved and appears in the day's list
+
+Failure scenario: Given the selected GP already has an appointment at that date/time When the receptionist attempts to book the same slot Then the system rejects the booking and shows a conflict message
+
+
+2. As a receptionist, I want to search for a patient by name so I don't create a duplicate record.
+
+Successful scenario: Given a patient record exists When I search by name Then matching records are returned
+
+Failure scenario: Given the search field is left blank When I submit the search Then the system rejects the search and prompts me to enter a name, instead of returning every patient record
+
+
+3. As a GP, I want to view my appointments for the day so I can prepare for consultations.
+
+Successful scenario: Given appointments exist for me on a given date When I open my daily schedule Then all my appointments for that date are shown in time order
+
+Failure scenario: Given the requested date is not a valid calendar date When I request my schedule for that date Then the system rejects the request and shows an error, rather than attempting to load and display bad data
+
+
+4. As a receptionist, I want to cancel an appointment so the slot is freed and the record reflects the change.
+
+Successful scenario: Given a valid, existing appointment When the receptionist cancels it Then its status is set to Cancelled and the slot becomes available again
+
+Failure scenario: Given an appointment ID doesn't exist or was already cancelled When the receptionist attempts to cancel it Then the system shows an error and makes no change
+
+
+assumptions and open questions 
+the following items could not be resolved from the client brief and need client input before further action. 
+
+
+1. The full list of required patient fields for FR-01, beyond name, contact information and date of birth, has not been confirmed with the client.
+
+2. Whether "basic GP records" needs its own dedicated create and view functionality or whether GP records are assumed to be administered outside the system.
+
+3. Whether cancelling an appointment should automatically free the slot as part of the cancel action or whether cancellation is purely a status change.
+
+4. Whether manual patient search is a sufficient safeguard against duplicate patient records or whether a dedicated duplicate detection feature is required.
+
+5. How appointment duration should be handled and how the system should treat overlapping or duplicate appointment attempts beyond the single GP conflict already covered by FR-04.
+
+6. The full authentication model beyond the provisional placeholder in FR-11. For example login, staff roles, permissions.
+
+7. Whether a patient double booking themselves across two different GPs at overlapping times is a scenario the client wants the system to prevent.
+
+8. Whether the provisional scope items, a daily operational report and patient SMS reminders,should be confirmed as in scope for this stage.
+
+9. The specific step-count target referenced in NFR-03.
+
+
+selected Ai review 
+1. FR-03 lists appointment date as required while FR-05 omits it
+classification: Accepted
+Directly checkable by comparing the two field lists, a wording contradiction, not a client decision. Fixed by adding date to FR-05.
+
+2. FR-02 doesn't specify partial vs. exact name match
+classification: Modified
+A real gap, but minor. Resolved by stating the assumption directly in the FR text rather than escalating to the client.
+
+3. NFR-04 isn't independently testable
+classification: Modified
+The original wording lacked a measurable pass or fail condition. Reworded around a checkable version-control-diff condition.
+
+4. appointment history vs. FR-09's broader "patient history"
+classification: Modified
+Wording mismatch visible without outside input. FR-09 narrowed to match the scope wording, whether broader history is wanted later remains open.
+
+5. No authenticationmodel, despite Story 3 implying GP-only visibility
+classification: Accepted
+An internal gap in the requirements themselves. A placeholder FR will be used. the full model is an open question for the client.
+
+6. 
+Patient double-booking across two GPs isn't addressed
+classification: Rejected
+Never raised by the client. assessed as the AI drawing an analogy to other scheduling systems rather than evidence in this brief. Retained only as a possible question, not a requirement.
+
+
+reflection
+In 150-250 words: What did AI notice that you missed? What did AI invent or overreach on? Which requirement changed after review? Why must requirements have evidence?
+
+What AI caught that I had missed: 
+The ai caught the FR-03 FR-05 date field contradtioction, the story 3 gp only visibility with no authentication model behind it, the AI also notied FR-02's blank search rejection was described in story 2 but never written into the FR itself. these were real gaps I had overlooked while writing the FRs. 
+
+What AI invented or overreached on: 
+it raised patient  double booking across two GPs as a problem. but that was never mentioned by the client. I assume the AI comapared this system to other scheduling systems rather than working with the evidence provided. I rejected this as a requirement, although I will keep it as a possible question to ask the client in the future. 
+
+which requirment changed after review: 
+NFR-04 had the most change. it originally had no pass fail condition due to the wording. I reworded it around a messurable control diff test. 
+
+Why requirements need evidence: 
+without any evidence, it's easy to accept AI suggestions that sound reasonable but arn't supported by client brief. tagging each suggestion as accepted, modifed, rejected or unverifed kept the decision traceable and allowed me to see the difference between AI assumptions and real client requiests. 
+
+
+
+
+
+
+
